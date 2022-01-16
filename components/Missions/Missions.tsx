@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { useQuery, gql } from "@apollo/client";
 import Mission from "../Mission/Mission";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { launchesPast } from "../../utils/queries/queries";
-
-interface Link {
-  flickr_images: any;
-}
 
 interface Mission {
   mission_name: string;
@@ -23,7 +26,7 @@ const Missions = () => {
   });
 
   if (error) {
-    return "api error";
+    return <Alert severity="error">Api error</Alert>;
   }
 
   return (
@@ -59,9 +62,14 @@ const Missions = () => {
             );
           })
         ) : (
-          <Typography variant="subtitle1" m={10}>
-            Loading...
-          </Typography>
+          <Box
+            sx={{ width: "100%", height: "90vh" }}
+            display={"flex"}
+            alignItems="center"
+            justifyContent={"center"}
+          >
+            <CircularProgress />
+          </Box>
         )}
       </Grid>
       {data?.launchesPast.length ? (
