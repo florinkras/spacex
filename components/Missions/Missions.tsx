@@ -12,6 +12,7 @@ import {
 import { launchesPast } from "../../utils/queries/queries";
 
 interface Mission {
+  id: string;
   mission_name: string;
   launch_date_local: string;
   details: string;
@@ -34,7 +35,6 @@ const Missions = () => {
       <Grid container spacing={3}>
         {!loading ? (
           data?.launchesPast.map((d: Mission, index: number) => {
-            console.log("DD", d);
             return (
               <Grid
                 key={index}
@@ -53,7 +53,7 @@ const Missions = () => {
                       : "https://ichef.bbci.co.uk/news/976/cpsprodpb/14C6F/production/_112430158_spacex1.jpg"
                   }
                   missionName={d.mission_name}
-                  missionLaunchDate={d.launch_date_local}
+                  missionId={d.id}
                   missionDesc={
                     d.details ? d.details?.substr(0, 200) : "Spacex mission"
                   }
@@ -76,7 +76,7 @@ const Missions = () => {
         <Box display="flex" justifyContent="center" mt={3}>
           <Button
             color="secondary"
-            variant="outlined"
+            variant="contained"
             onClick={() =>
               fetchMore({
                 variables: {
